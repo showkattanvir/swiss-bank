@@ -20,6 +20,19 @@ function updateTotalField(totalFieldId, amount) {
     totalElement.innerText = previousTotal + amount;
 }
 
+function updateBalance(depositAmount, isAdd) {
+    const balanceTotal = document.getElementById('balance-total');
+    const balanceTotalText = balanceTotal.innerText;
+    const previousBalaceTotal = parseFloat(balanceTotalText);
+    if (isAdd == true) {
+        balanceTotal.innerText = previousBalaceTotal + depositAmount;
+    }
+    else {
+        balanceTotal.innerText = previousBalaceTotal - depositAmount;
+    }
+
+}
+
 
 
 document.getElementById('deposit-button').addEventListener('click', function () {
@@ -34,10 +47,11 @@ document.getElementById('deposit-button').addEventListener('click', function () 
     depositTotal.innerText = previousDepositTotal + depositAmount; */
     updateTotalField('deposit-total', depositAmount)
 
-    const balanceTotal = document.getElementById('balance-total');
+    /* const balanceTotal = document.getElementById('balance-total');
     const balanceTotalText = balanceTotal.innerText;
     const previousBalaceTotal = parseFloat(balanceTotalText);
-    balanceTotal.innerText = previousBalaceTotal + depositAmount;
+    balanceTotal.innerText = previousBalaceTotal + depositAmount; */
+    updateBalance(depositAmount, true)
     // depositInput.value = '';
 })
 document.getElementById('withdraw-button').addEventListener('click', function () {
@@ -52,9 +66,10 @@ document.getElementById('withdraw-button').addEventListener('click', function ()
     */
     updateTotalField('withdraw-total', withdrawAmount)
     // বেলেন্স টোটাল এখানে লিখেছি
-    const balanceTotal = document.getElementById('balance-total');
+    /* const balanceTotal = document.getElementById('balance-total');
     const balanceTotalText = balanceTotal.innerText;
     const previousBalaceTotal = parseFloat(balanceTotalText);
-    balanceTotal.innerText = previousBalaceTotal - withdrawAmount;
+    balanceTotal.innerText = previousBalaceTotal - withdrawAmount; */
+    updateBalance(withdrawAmount, false)
     // withdrawInput.value = '';
 })
