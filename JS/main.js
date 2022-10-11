@@ -1,10 +1,3 @@
-/* function doubleIt(num){
-    const result = num*2;
-    return result;
-}
-const first= doubleIt(5);
-const second = doubleIt(7); */
-
 function getInputValue(inputId) {
     const inputField = document.getElementById(inputId);
     const inputAmountText = inputField.value;
@@ -20,10 +13,18 @@ function updateTotalField(totalFieldId, amount) {
     totalElement.innerText = previousTotal + amount;
 }
 
-function updateBalance(depositAmount, isAdd) {
+function getCurrentBalance() {
     const balanceTotal = document.getElementById('balance-total');
     const balanceTotalText = balanceTotal.innerText;
     const previousBalaceTotal = parseFloat(balanceTotalText);
+    return previousBalaceTotal;
+}
+
+function updateBalance(depositAmount, isAdd) {
+    const balanceTotal = document.getElementById('balance-total');
+    /*const balanceTotalText = balanceTotal.innerText;
+    const previousBalaceTotal = parseFloat(balanceTotalText); */
+    const previousBalaceTotal = getCurrentBalance()
     if (isAdd == true) {
         balanceTotal.innerText = previousBalaceTotal + depositAmount;
     }
@@ -32,44 +33,19 @@ function updateBalance(depositAmount, isAdd) {
     }
 
 }
-
-
-
 document.getElementById('deposit-button').addEventListener('click', function () {
-    /*  const depositInput = document.getElementById('deposit-input');
-     const depositAmountText = depositInput.value;
-     const depositAmount = parseFloat(depositAmountText); */
-    const depositAmount = getInputValue('deposit-input');// এখানে depositeAmount টা লাগতেছে যেহেতু  এটি আরো কয়েকটা জায়গায় use হয়েছে।
+    const depositAmount = getInputValue('deposit-input');
+    if (depositAmount > 0) {
+        updateTotalField('deposit-total', depositAmount);
+        updateBalance(depositAmount, true);
+    }
 
-    /* const depositTotal = document.getElementById('deposit-total');
-    const depositTotalText = depositTotal.innerText;
-    const previousDepositTotal = parseFloat(depositTotalText);
-    depositTotal.innerText = previousDepositTotal + depositAmount; */
-    updateTotalField('deposit-total', depositAmount)
-
-    /* const balanceTotal = document.getElementById('balance-total');
-    const balanceTotalText = balanceTotal.innerText;
-    const previousBalaceTotal = parseFloat(balanceTotalText);
-    balanceTotal.innerText = previousBalaceTotal + depositAmount; */
-    updateBalance(depositAmount, true)
-    // depositInput.value = '';
 })
 document.getElementById('withdraw-button').addEventListener('click', function () {
-    /* const withdrawInput = document.getElementById('withdraw-input');
-    const withdrawAmountText = withdrawInput.value;
-    const withdrawAmount = parseFloat(withdrawAmountText); */
     const withdrawAmount = getInputValue("withdraw-input")
-    /* const withdrawTotal = document.getElementById('withdraw-total');
-    const withdrawTotalText = withdrawTotal.innerText;
-    const previousWithdrawTotal = parseFloat(withdrawTotalText)
-    withdrawTotal.innerText = withdrawAmount + previousWithdrawTotal; 
-    */
-    updateTotalField('withdraw-total', withdrawAmount)
-    // বেলেন্স টোটাল এখানে লিখেছি
-    /* const balanceTotal = document.getElementById('balance-total');
-    const balanceTotalText = balanceTotal.innerText;
-    const previousBalaceTotal = parseFloat(balanceTotalText);
-    balanceTotal.innerText = previousBalaceTotal - withdrawAmount; */
-    updateBalance(withdrawAmount, false)
-    // withdrawInput.value = '';
+    const currentBalance = getCurrentBalance();
+    if (withdrawAmount > 0 && withdrawAmount < currentBalance) {
+        updateTotalField('withdraw-total', withdrawAmount)
+        updateBalance(withdrawAmount, false)
+    }
 })
