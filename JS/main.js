@@ -5,12 +5,12 @@
 const first= doubleIt(5);
 const second = doubleIt(7); */
 
-function getInputValue() {
-    const depositInput = document.getElementById('deposit-input');
-    const depositAmountText = depositInput.value;
-    const depositAmount = parseFloat(depositAmountText);
-    depositInput.value = '';
-    return depositAmount;
+function getInputValue(inputId) {
+    const inputField = document.getElementById(inputId);
+    const inputAmountText = inputField.value;
+    const amountValue = parseFloat(inputAmountText);
+    inputField.value = '';
+    return amountValue;
 }
 
 
@@ -19,7 +19,7 @@ document.getElementById('deposit-button').addEventListener('click', function () 
     /*  const depositInput = document.getElementById('deposit-input');
      const depositAmountText = depositInput.value;
      const depositAmount = parseFloat(depositAmountText); */
-    const depositAmount = getInputValue();
+    const depositAmount = getInputValue('deposit-input');// এখানে depositeAmount টা লাগতেছে যেহেতু  এটি আরো কয়েকটা জায়গায় use হয়েছে।
 
     const depositTotal = document.getElementById('deposit-total');
     const depositTotalText = depositTotal.innerText;
@@ -32,9 +32,10 @@ document.getElementById('deposit-button').addEventListener('click', function () 
     // depositInput.value = '';
 })
 document.getElementById('withdraw-button').addEventListener('click', function () {
-    const withdrawInput = document.getElementById('withdraw-input');
+    /* const withdrawInput = document.getElementById('withdraw-input');
     const withdrawAmountText = withdrawInput.value;
-    const withdrawAmount = parseFloat(withdrawAmountText);
+    const withdrawAmount = parseFloat(withdrawAmountText); */
+    const withdrawAmount = getInputValue("withdraw-input")
     const withdrawTotal = document.getElementById('withdraw-total');
     const withdrawTotalText = withdrawTotal.innerText;
     const previousWithdrawTotal = parseFloat(withdrawTotalText)
@@ -44,5 +45,5 @@ document.getElementById('withdraw-button').addEventListener('click', function ()
     const balanceTotalText = balanceTotal.innerText;
     const previousBalaceTotal = parseFloat(balanceTotalText);
     balanceTotal.innerText = previousBalaceTotal - withdrawAmount;
-    withdrawInput.value = '';
+    // withdrawInput.value = '';
 })
